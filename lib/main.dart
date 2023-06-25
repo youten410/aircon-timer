@@ -111,6 +111,12 @@ class _AirConTimerState extends State<AirConTimer> {
       context: context,
       initialTime: selectedTime,
       initialEntryMode: TimePickerEntryMode.input,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
     );
 
     if (picked != null) {
