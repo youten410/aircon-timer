@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:async'; // 追加
+import 'dart:async';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
   runApp(const MyApp());
