@@ -23,14 +23,15 @@ class AirConTimer extends StatefulWidget {
 }
 
 class _AirConTimerState extends State<AirConTimer> {
-  //Time Picker用の変数を定義
+  //選択された時刻
   TimeOfDay selectedTime = TimeOfDay.now();
-
-  // 追加: 現在時刻を保持する変数
+  //現在時刻
   TimeOfDay nowTime = TimeOfDay.now();
-
-  // 追加: Timerを保持する変数
+  //
   Timer? timer;
+
+  //時間差
+  Duration timeDifference = Duration.zero;
 
   @override
   void initState() {
@@ -90,7 +91,7 @@ class _AirConTimerState extends State<AirConTimer> {
               height: 50,
             ),
             Text(
-              "6.5時間",
+              "${timeDifference.inHours.toString().padLeft(2, "0")}時間${(timeDifference.inMinutes % 60).toString().padLeft(2, "0")}分",
               style: TextStyle(fontSize: 40.0),
             ),
             SizedBox(
@@ -122,7 +123,20 @@ class _AirConTimerState extends State<AirConTimer> {
     if (picked != null) {
       setState(() {
         selectedTime = picked;
+        calculateTimeDifference();
       });
+    }
+  }
+
+  void calculateTimeDifference() {
+    final nowDateTime = DateTime(DateTime.now().year, DateTime.now().month,
+        DateTime.now().day, nowTime.hour, nowTime.minute);
+    final selectedDateTime = DateTime(DateTime.now().year, DateTime.now().month,
+        DateTime.now().day, selectedTime.hour, selectedTime.minute);
+    timeDifference = selectedDateTime.difference(nowDateTime);
+
+    if (timeDifference.isNegative) {
+      timeDifference += Duration(hours: 24);
     }
   }
 }
