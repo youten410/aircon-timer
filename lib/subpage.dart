@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Subpage extends StatefulWidget {
   const Subpage({super.key});
@@ -112,7 +113,41 @@ class _SubpageState extends State<Subpage> {
               trailing: Image.network(
                   'https://2.bp.blogspot.com/-5bNXcjt_dhs/VsGsA7eqYcI/AAAAAAAA36A/V1TfyPavppE/s400/eakon_reibou.png'),
             ),
+            SizedBox(
+              height: 25,
+            ),
+            Container(
+              width: 350,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Text(
+                    "自身で行うエアコンの掃除は、月に1回程度が望ましいとされています。\n最低でも年に1回は専門業者による点検や清掃をお勧めします。",
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                  TextButton(
+                    child: Text(
+                      '詳しいお手入れ方法はこちら',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                    onPressed: () {
+                      final url =
+                          Uri.parse('https://www.osoujihonpo.com/guide/aircon/181029-01#section10');
+                      launchUrl(url);
+                    },
+                  ),
+                ],
+              ),
+            ),
           ],
-        ));
+        )));
   }
 }
