@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:aircon_timer/subpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: AirConTimer(),
     );
   }
@@ -126,18 +128,37 @@ class _AirConTimerState extends State<AirConTimer> {
                     SizedBox(
                       height: 20,
                     ),
-                    TextButton(
-                      child: Text(
-                        'でんき予報',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
+                    Row(
+                      children: [
+                        TextButton(
+                          child: Text(
+                            'でんき予報',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                          onPressed: () {
+                            final url =
+                                Uri.parse('https://www.tepco.co.jp/forecast/');
+                            launchUrl(url);
+                          },
                         ),
-                      ),
-                      onPressed: () {
-                        final url =
-                            Uri.parse('https://www.tepco.co.jp/forecast/');
-                        launchUrl(url);
-                      },
+                        TextButton(
+                          child: Text(
+                            '簡単なお掃除方法',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Subpage()),
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
