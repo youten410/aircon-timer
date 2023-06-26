@@ -19,7 +19,8 @@ class _SubpageState extends State<Subpage> {
                 fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
           ),
         ),
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
           children: [
             SizedBox(
               height: 20,
