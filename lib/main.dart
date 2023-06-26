@@ -121,7 +121,6 @@ class _AirConTimerState extends State<AirConTimer> {
                       "冷房時の省エネ推奨温度（適温）は、室温28℃です。\n冷房時は設定温度を1℃高めに設定すると、約10%の節電効果が得られます。",
                       style: TextStyle(
                         fontSize: 15,
-                        backgroundColor: Colors.yellow,
                       ),
                     ),
                     SizedBox(
