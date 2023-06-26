@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MyApp());
@@ -57,52 +58,91 @@ class _AirConTimerState extends State<AirConTimer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-              "現在の時刻",
-              style: TextStyle(fontSize: 20.0),
-            ),
-            Text(
-              // 変更: 現在時刻を表示
-              '${nowTime.hour.toString().padLeft(2, "0")}:${nowTime.minute.toString().padLeft(2, "0")}',
-              style: TextStyle(fontSize: 40.0),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Text(
-              "ON/OFFにしたい時刻",
-              style: TextStyle(fontSize: 20.0),
-            ),
-            Text(
-              '${selectedTime.hour.toString().padLeft(2, "0")}:${selectedTime.minute.toString().padLeft(2, "0")}',
-              style: TextStyle(fontSize: 40.0),
-            ),
-            ElevatedButton(
-              onPressed: () => _selectTime(context),
-              child: const Text('時刻選択'),
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20))),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Text(
-              "${timeDifference.inHours.toString().padLeft(2, "0")}時間${(timeDifference.inMinutes % 60).toString().padLeft(2, "0")}分",
-              style: TextStyle(fontSize: 40.0),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Text(
-              "エアコンの温度は〇℃がエコです🌏",
-              style: TextStyle(fontSize: 15.0),
-            ),
-          ],
+      body: Container(
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                "現在の時刻",
+                style: TextStyle(fontSize: 20.0),
+              ),
+              Text(
+                // 変更: 現在時刻を表示
+                '${nowTime.hour.toString().padLeft(2, "0")}:${nowTime.minute.toString().padLeft(2, "0")}',
+                style: TextStyle(fontSize: 40.0),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Text(
+                "ON/OFFにしたい時刻",
+                style: TextStyle(fontSize: 20.0),
+              ),
+              Text(
+                '${selectedTime.hour.toString().padLeft(2, "0")}:${selectedTime.minute.toString().padLeft(2, "0")}',
+                style: TextStyle(fontSize: 40.0),
+              ),
+              ElevatedButton(
+                onPressed: () => _selectTime(context),
+                child: const Text('時刻選択'),
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20))),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Text(
+                "${timeDifference.inHours.toString().padLeft(2, "0")}時間${(timeDifference.inMinutes % 60).toString().padLeft(2, "0")}分",
+                style: TextStyle(fontSize: 40.0),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Container(
+                width: 300,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                padding: EdgeInsets.all(10.0), // 追加: 内部のコンテンツに対するパディング
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        "冷房時の省エネ推奨温度（適温）は、室温28℃です。\n冷房時は設定温度を1℃高めに設定すると、約10%の節電効果が得られます。",
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          backgroundColor: Colors.yellow,
+                          ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextButton(
+                      child: Text(
+                        'でんき予報',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                      onPressed: () {
+                        final url =
+                            Uri.parse('https://www.tepco.co.jp/forecast/');
+                        launchUrl(url);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
